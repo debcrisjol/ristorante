@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Table;
 use Illuminate\Http\Request;
 
 class TableController extends Controller
@@ -13,8 +14,8 @@ class TableController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('admin.tables.index');
+    {    $tables=Table::all();
+        return view('admin.tables.index',compact('tables'));
     }
 
     /**

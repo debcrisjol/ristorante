@@ -1,17 +1,20 @@
 <x-admin-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                Menus
-                </div>
+    <x-admin-layout>
+        <div class="container w-full px-5 py-6 mx-auto">
+            <div class="grid lg:grid-cols-4 gap-y-6">
+                @foreach ($menus as $menu)
+                    <div class="max-w-xs mx-4 mb-2 rounded-lg shadow-lg">
+                        <img class="w-full h-48" src="{{ Storage::url($menu->image) }}" alt="Image" />
+                        <div class="px-6 py-4">
+                            <h4 class="mb-3 text-xl font-semibold tracking-tight text-green-600 uppercase">
+                                {{ $menu->name }}</h4>
+                            <p class="leading-normal text-gray-700">{{ $menu->description }}.</p>
+                        </div>
+                        <div class="flex items-center justify-between p-4">
+                            <span class="text-xl text-green-600">${{ $menu->price }}</span>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
-    </div>
-</x-admin-layout>
+    </x-admin-layout>
