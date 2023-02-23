@@ -55,11 +55,11 @@ class ReservationController extends Controller
 
 
     public function edit(Reservation $reservation )
-     {
+     {$choice = TableLocation::all();
         $tables = Table::all();
         // $reservation = Reservation::all();
         // dd($reservation);
-        return view('admin.reservations.edit', compact('reservation','tables'));
+        return view('admin.reservations.edit', compact('reservation','tables','choice'));
     }
 
 
@@ -78,8 +78,9 @@ class ReservationController extends Controller
         // }
 
         $reservation->update($request->validated());
+        $choice = TableLocation::all();
         $reservations = Reservation::all();
-        return view('admin.reservations.index',compact('reservations'))->with('success', 'Reservation updated successfully.');
+        return view('admin.reservations.index',compact('choice','reservations'))->with('success', 'Reservation updated successfully.');
     }
 
 

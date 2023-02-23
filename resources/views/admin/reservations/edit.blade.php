@@ -13,6 +13,7 @@
             </div>
             <div class="m-2 p-2 bg-slate-100 rounded">
                 <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10">
+
                     <form method="POST" action="{{ route('admin.reservations.update',$reservation->id) }}">
                         @csrf
                         @method('PUT')
@@ -80,13 +81,13 @@
                                     value="{{ $reservation->guest_number }}"
                                     class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                             </div>
-                         
+
                         </div>
                         <div class="sm:col-span-6 pt-5">
                             <label for="status" class="block text-sm font-medium text-gray-700">Table</label>
                             <div class="mt-1">
                                 <select id="table_id" name="table_id" class="form-multiselect block w-full mt-1">
-                                    @foreach ($tables as $table)
+                                    @foreach ($choice as $table)
                                         <option value="{{ $table->id }}">
                                             {{ $table->location }}
 
@@ -103,7 +104,9 @@
                             <button type="submit"
                                 class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Update</button>
                         </div>
+
                     </form>
+
                 </div>
 
             </div>
