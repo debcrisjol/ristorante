@@ -19,12 +19,13 @@
             </div>
             <div class="m-2 p-2 bg-slate-100 rounded">
                 <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10">
-                    <form method="POST" action="<?php echo e(route('admin.tables.store')); ?>">
+                    <form method="POST" action="<?php echo e(route('admin.tables.update', $table->id)); ?>">
                         <?php echo csrf_field(); ?>
+                        <?php echo method_field('PUT'); ?>
                         <div class="sm:col-span-6">
                             <label for="name" class="block text-sm font-medium text-gray-700"> Name </label>
                             <div class="mt-1">
-                                <input type="text" id="name" name="name"
+                                <input type="text" id="name" name="name" value="<?php echo e($table->name); ?>"
                                     class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                             </div>
                             <?php $__errorArgs = ['name'];
@@ -43,6 +44,7 @@ unset($__errorArgs, $__bag); ?>
                             </label>
                             <div class="mt-1">
                                 <input type="number" id="guest_number" name="guest_number"
+                                    value="<?php echo e($table->guest_number); ?>"
                                     class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                             </div>
                             <?php $__errorArgs = ['guest_number'];
@@ -56,8 +58,10 @@ if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>
                         </div>
-                        
-                        <div class="sm:col-span-6">
+
+                        <div class="sm:col-span-6 pt-5">
+                            <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
+                            <div class="mt-1">
                                 <select id="location" name="location" class="form-multiselect block w-full mt-1">
                                     <?php $__currentLoopData = $choice; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $location): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option value="<?php echo e($location->location); ?>"><?php echo e($location->location); ?></option>
@@ -91,4 +95,4 @@ unset($__errorArgs, $__bag); ?>
 <?php $component = $__componentOriginalbacdc7ee2ae68d90ee6340a54a5e36f99d0a3040; ?>
 <?php unset($__componentOriginalbacdc7ee2ae68d90ee6340a54a5e36f99d0a3040); ?>
 <?php endif; ?>
-<?php /**PATH C:\Users\debcr\ristorante\resources\views/admin/tables/create.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\debcr\ristorante\resources\views/admin/tables/edit.blade.php ENDPATH**/ ?>
