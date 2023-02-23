@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class MenuController extends Controller
 {
-    
+
     public function index()
     {
         $menus = Menu::all();
@@ -25,39 +25,33 @@ class MenuController extends Controller
     }
 
 
-    // public function store(MenuStoreRequest $request)
-    // {
-    //     $image = $request->file('image')->store('public/menus');
+    public function store(MenuStoreRequest $request)
+    {
+        $image = $request->file('image')->store('public/menus');
 
-    //     $menu = Menu::create([
-    //         'name' => $request->name,
-    //         'description' => $request->description,
-    //         'image' => $image,
-    //         'price' => $request->price
-    //     ]);
+        $menu = Menu::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => $image,
+            'price' => $request->price
+        ]);
 
-    //     if ($request->has('categories')) {
-    //         $menu->categories()->attach($request->categories);
-    //     }
-
-    //     return view('admin.menus.index')->with('success', 'Menu created successfully.');
-    // }
+        if ($request->has('categories')) {
+            $menu->categories()->attach($request->categories);
+        }
+        $menus = Menu::all();
+        return view('admin.menus.index',compact('menus'))->with('success', 'Menu created successfully.');
+    }
 
 
 
     public function edit(Menu $menu)
-    {
+    { $menus = Menu::all();
         $categories = Category::all();
         return view('admin.menus.edit', compact('menu', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Menu $menu)
     {
         $request->validate([
@@ -81,7 +75,8 @@ class MenuController extends Controller
         if ($request->has('categories')) {
             $menu->categories()->sync($request->categories);
         }
-        return view('admin.menus.index')->with('success', 'Menu updated successfully.');
+        $menus = Menu::all();
+        return view('admin.menus.index',compact('menus'))->with('success', 'Menu updated successfully.');
     }
 
     /**
@@ -95,6 +90,7 @@ class MenuController extends Controller
         Storage::delete($menu->image);
         $menu->categories()->detach();
         $menu->delete();
-        return view('admin.menus.index')->with('danger', 'Menu deleted successfully.');
+        $menus = Menu::all();
+        return view('admin.menus.index',compact('menus'))->with('danger', 'Menu deleted successfully.');
     }
 }
