@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
-   
+
     public function index()
     {
         $categories = Category::all();
@@ -23,19 +23,24 @@ class CategoryController extends Controller
         return view('admin.categories.create');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(CategoryStoreRequest $request)
+    {
+        $image = $request->file('image')->store('public/categories');
 
-    // public function store(CategoryStoreRequest $request)
-    // {
-    //     $image = $request->file('image')->store('public/categories');
-
-    //     Category::create([
-    //         'name' => $request->name,
-    //         'description' => $request->description,
-    //         'image' => $image
-    //     ]);
-
-    //     return view('admin.categories.index')->with('success', 'Category created successfully.');
-    // }
+        Category::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => $image
+        ]);
+        $categories = Category::all();
+        return view('admin.categories.index',compact('categories'))->with('success', 'Category created successfully.');
+    }
 
 
     public function show($id)
@@ -57,11 +62,12 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Category $category)
-    {
+    { $categories = Category::all();
         $request->validate([
             'name' => 'required',
             'description' => 'required'
         ]);
+
         $image = $category->image;
         if ($request->hasFile('image')) {
             Storage::delete($category->image);
@@ -72,8 +78,9 @@ class CategoryController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'image' => $image
+
         ]);
-        return view('admin.categories.index')->with('success', 'Category updated successfully.');
+        return view('admin.categories.index',compact('categories'))->with('success', 'Category updated successfully.');
     }
 
     /**
@@ -85,9 +92,9 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         Storage::delete($category->image);
-        $category->menus()->detach();
+        // $category->menus()->detach();
         $category->delete();
-
-        return view('admin.categories.index')->with('danger', 'Category deleted successfully.');
+        $categories = Category::all();
+        return view('admin.categories.index',compact('categories'))->with('danger', 'Category deleted successfully.');
     }
 }

@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
-  
+
     public function index()
     {
         $reservations = Reservation::all();
@@ -21,8 +21,9 @@ class ReservationController extends Controller
 
 
     public function create()
-    {
-        $tables = Table::where('status', TableStatus::Avalaiable)->get();
+    {   $tables = Table::all();
+        // where('status', TableStatus::Avalaiable)->get();
+
         return view('admin.reservations.create', compact('tables'));
     }
 
@@ -52,7 +53,7 @@ class ReservationController extends Controller
 
     public function edit(Reservation $reservation)
     {
-        $tables = Table::where('status', TableStatus::Avalaiable)->get();
+        // $tables = Table::where('status', TableStatus::Avalaiable)->get();
         return view('admin.reservations.edit', compact('reservation', 'tables'));
     }
 

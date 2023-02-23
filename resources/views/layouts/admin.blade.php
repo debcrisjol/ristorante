@@ -87,7 +87,7 @@
                 </div>
             </nav>
         </div>
-        <main class="m-2 p-8 w-full">
+        <main class="m-2 p-8 w-full" style="background-image: url('https://media.istockphoto.com/id/939051976/photo/view-of-stylish-empty-cafe-with-arranged-tables-and-chairs-for-visitors.jpg?s=612x612&w=0&k=20&c=kYVpfEGV-Cm6BWZkzhnA_TDHNDcpdEEswoJtH5fDXzw='); background-image:center;  background-size: cover;">
             <div>
                 @if (session()->has('danger'))
                     <div class="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
